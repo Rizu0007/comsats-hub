@@ -15,7 +15,7 @@ const Header = () => {
     }
 
   return (
-    <div className='bg-white border-b shadow-sm sticky top-1'>
+    <div className='bg-neutral-200			 border-b shadow-sm sticky top-1'>
    <header className='flex justify-between items-center px-4 max-w-6xl mx-auto'>
    <div>
    <img src={logo} alt='logo' className='h-28 cursor-pointer'
@@ -37,19 +37,19 @@ const Header = () => {
    </li>
    <li
      className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-       pathMatchRoute("/offers") && "text-black border-b-red-500"
+       pathMatchRoute("/Offer") && "text-black border-b-red-500"
      }`}
-     onClick={() => navigte("/offer")}
+     onClick={() => navigte("/Offer")}
 
    >
      Offers
    </li>
    <li
      className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-       (pathMatchRoute("/sign-in") || pathMatchRoute("/profile")) &&
+       (pathMatchRoute("/Hold") || pathMatchRoute("/profile")) &&
        "text-black border-b-red-500"
      }`}
-     onClick={() => navigte("/Sign-in")}
+     onClick={() => navigte("/Hold")}
 
    >
    Signin
