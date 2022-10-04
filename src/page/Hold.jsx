@@ -2,21 +2,46 @@ import React, { useState } from 'react'
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import QAuth from '../components/QAuth';
+import { getAuth, createUserWithEmailAndPassword , updateProfile, signInWithEmailAndPassword } from "firebase/auth";
+import { db } from "../Firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { ToastContainer, toast } from 'react-toastify';
 
  
 const Hold = () => {
-    const [formData ,setformdata]=useState({
-        email:"",
-        password:""
-    })
-    const {email , password}=formData;
-    function onChange(e) {
-        setformdata((prevState) => ({
-          ...prevState,
-          [e.target.id]: e.target.value,
-        }));
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = formData;
+  const navigate = useNavigate();
+  function onChange(e) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
+      async function onSubmit(e) {
+        e.preventDefault();
+        try {
+          const auth = getAuth();
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          if (userCredential.user) {
+            navigate("/");
+          }
+          
+        } catch (error) {
+          toast.error("EMAIL OR PASSWORD NOT CORRECT")
+          
+        }
       }
-      const [showPassword , setShowPassword]=useState(false);
   return (
     <section>
     <h1 className="text-3xl text-center mt-6 font-bold">Sign In</h1>
@@ -29,7 +54,7 @@ const Hold = () => {
         />
       </div>
       <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-        <form>
+        <form onSubmit={onSubmit}>
           <input
             type="email"
             id="email"
@@ -71,7 +96,7 @@ const Hold = () => {
             </p>
             <p>
               <Link
-                to="/forgot-password"
+                to="/Forgotpassword"
                 className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out"
               >
                 Forgot password?

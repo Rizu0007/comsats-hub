@@ -2,6 +2,11 @@ import React from 'react'
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import QAuth from '../components/QAuth';
+import { getAuth, createUserWithEmailAndPassword , updateProfile, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { db } from "../Firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 const Forgotpassword = () => {
@@ -9,6 +14,21 @@ const Forgotpassword = () => {
 
   function onChange(e) {
     setEmail(e.target.value);
+  }
+  async function onSubmit(e){
+    e.preventDefault();
+    try {
+      const auth=getAuth();
+      await sendPasswordResetEmail(
+        auth,
+        email
+      )
+      toast.success("Enter was sent")
+      
+    } catch (error) {
+      toast.error("wrong EMAIL Provide")
+
+    }
   }
 
   return (
@@ -23,7 +43,7 @@ const Forgotpassword = () => {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="email"
               id="email"
