@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation ,useNavigate} from 'react-router'
 import logo from '../components/logo.png'
 import {FcHome} from "react-icons/fc"
 import {MdOutlineLocalOffer}  from 'react-icons/md'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const Header = () => {
+  const auth=getAuth();
+ useEffect(()=>{
+
+onAuthStateChanged(auth ,(user)=>{
+  if(user){
+    setpageState("Profile")
+  }else{
+    setpageState("Sign in")
+  }
+})
+ } ,auth)
+
+
+
+  const[pagestate , setpageState]=useState("Sign in")
     const loction=useLocation();
     const navigte=useNavigate();
     function pathMatchRoute(route) {
@@ -13,7 +29,7 @@ const Header = () => {
         }
 
     }
-
+ 
   return (
     <div className='bg-neutral-200			 border-b shadow-sm sticky top-1'>
    <header className='flex justify-between items-center px-4 max-w-6xl mx-auto'>
@@ -49,10 +65,10 @@ const Header = () => {
        (pathMatchRoute("/Hold") || pathMatchRoute("/profile")) &&
        "text-black border-b-red-500"
      }`}
-     onClick={() => navigte("/Hold")}
+     onClick={() => navigte("/profile")}
 
    >
-   Signin
+   {pagestate}
    </li>
  </ul>
    </header>
