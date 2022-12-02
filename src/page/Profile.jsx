@@ -14,6 +14,8 @@ import {
   where,
 } from "firebase/firestore";
 import {db} from '../Firebase'
+import {FcHome} from 'react-icons/fc'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
 const auth=getAuth()
@@ -91,6 +93,14 @@ const [ChangeDetail , setChangeDetail]=useState(false)
      </div>
 
      </form>
+       <button type='submit' className='w-full bg-blue-400 text-white uppercase px-7 py-7 text-sm font-medium rounded shadow-md hover:bg-blue-700 translate duration-200 ease-out hover:shadow-lg active:bg-red-300'>
+       <Link to='/CreateListing' className='flex justify-center items-center'>
+       <FcHome className='mr-2 text-3xl bg-red-600 rounded-full p-1 border-2'/>
+       </Link>
+       
+       Sell or Rent your Home
+
+       </button>
     </div>
     </section>
     </>

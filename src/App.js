@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Profile  from './page/Profile'
 import PrivateRoute from './components/PrivateRoute';
+import CreateListing from './page/CreateListing';
 
 
 
@@ -29,7 +30,7 @@ const App = () => {
       <Route path='Hold' element={<Hold />}></Route>
       <Route path='Signup' element={<Signup />}></Route>
       <Route path='Forgotpassword' element={<Forgotpassword />}></Route>
-
+      <Route path="/createListing" element={<CreateListing />}></Route>
    
    
       </Routes>
