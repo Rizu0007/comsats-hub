@@ -1,4 +1,4 @@
- import React, { useState } from 'react'
+ import React, { useState , useEffect } from 'react'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
@@ -60,6 +60,17 @@ const [ChangeDetail , setChangeDetail]=useState(false)
     [e.target.id]:e.target.value,
   }))
   }
+
+  useEffect(() => {
+    async function fetchUserListings() {
+      const listingRef = collection(db, "listings");
+      const q = query(
+        listingRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc")
+      );
+    }
+    
   return (
     <>
     <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
