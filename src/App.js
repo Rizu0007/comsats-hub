@@ -24,14 +24,17 @@ const App = () => {
       <Route path="/" element={<Home />} ></Route>
       <Route path='/Profile' element={<PrivateRoute/>}>
       <Route path='/Profile' element={<Profile/>} />
-
+       
       </Route>
       <Route path="/Offer" element={<Offer />}></Route>
       <Route path='Hold' element={<Hold />}></Route>
       <Route path='Signup' element={<Signup />}></Route>
+      
       <Route path='Forgotpassword' element={<Forgotpassword />}></Route>
+      <Route path='createListing'  element={<PrivateRoute/>}>
+      
       <Route path="/createListing" element={<CreateListing />}></Route>
-   
+      </Route>
    
       </Routes>
     <ToastContainer
