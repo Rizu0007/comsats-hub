@@ -16,8 +16,11 @@ import {
 import {db} from '../Firebase'
 import {FcHome} from 'react-icons/fc'
 import { Link } from 'react-router-dom'
+import ListingItem from './../components/ListingItem';
 
 const Profile = () => {
+  const [listings , setListings]=useState(null)
+  const [ loading , setloading]=useState(true)
 const auth=getAuth()
 const navigate=useNavigate();
 const [ChangeDetail , setChangeDetail]=useState(false)
@@ -63,13 +66,26 @@ const [ChangeDetail , setChangeDetail]=useState(false)
 
   useEffect(() => {
     async function fetchUserListings() {
+   
       const listingRef = collection(db, "listings");
       const q = query(
         listingRef,
         where("userRef", "==", auth.currentUser.uid),
         orderBy("timestamp", "desc")
       );
-    }
+      const querySnap=await getDocs(q);
+      let listings=[];
+      querySnap.forEach((doc)=>{
+        return listings.push({
+          id:doc.id,
+          data:doc.data(),
+
+        })
+      })
+      setListings()    }
+    fetchUserListings(listings)
+    setloading(false)
+  },[auth.currentUser.uid]);
     
   return (
     <>
@@ -112,8 +128,28 @@ const [ChangeDetail , setChangeDetail]=useState(false)
        Sell or Rent your Home
 
        </button>
+       <h1>gh</h1>
     </div>
     </section>
+    <div className="max-w-6xl px-3 mt-6 mx-auto">
+        {!loading && listings.length > 0 && (
+          <>
+            <h2 className="text-2xl text-center font-semibold mb-6">
+              My Listings
+            </h2>
+            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   )
 }
