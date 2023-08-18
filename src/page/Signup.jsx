@@ -7,6 +7,8 @@ import { db } from "../Firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { ethers } from 'ethers';
+
 
 
 
@@ -17,7 +19,6 @@ export default function SignUp() {
     email: "",
     password: "",
   });
- 
 
   const { name, email, password } = formData;
   const navigate = useNavigate();

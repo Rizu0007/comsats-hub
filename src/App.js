@@ -11,13 +11,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Profile  from './page/Profile'
 import PrivateRoute from './components/PrivateRoute';
 import CreateListing from './page/CreateListing';
+import AccountCreate from './page/CreateAcc';
+import Listing from './page/Listing';
 
 
 
 
 const App = () => {
   return (
-  
+
     <BrowserRouter>
     <Header />
     <Routes>
@@ -30,11 +32,15 @@ const App = () => {
       <Route path='Hold' element={<Hold />}></Route>
       <Route path='Signup' element={<Signup />}></Route>
       
-      <Route path='Forgotpassword' element={<Forgotpassword />}></Route>
-      <Route path='createListing'  element={<PrivateRoute/>}>
-      
-      <Route path="/createListing" element={<CreateListing />}></Route>
-      </Route>
+      <Route path='Forgotpassword' element={<Forgotpassword />}/>
+      <Route
+      path="/category/:categoryName/:listingId"
+      element={<Listing />}
+    />
+
+      <Route path="create-listing" element={<PrivateRoute />}>
+            <Route path="/create-listing" element={<CreateListing />} />
+          </Route>
    
       </Routes>
     <ToastContainer
@@ -59,4 +65,3 @@ pauseOnHover
 }
 
 export default App
-
